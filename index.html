@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <base href="/">
+
+    <meta charset="utf-8">
+    <meta name="author" content="Danilo Calderazzo">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Soy Dani, y este es mi alijo de preguntas, criticas y certezas sobre esta sociedad digital llena de datos e historias.">
+
+    <meta property="og:title" content="Danilo Calderazzo">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Soy Dani, y este es mi alijo de preguntas, criticas y certezas sobre esta sociedad digital llena de datos e historias.">
+    <meta property="og:image" content="/assets/Dani.jpg">
+    <meta property="og:width" content="319">
+    <meta property="og:height" content="319">
+    <meta property="og:url" content="https://twitter.com/2_zetas">
+    <meta property="og:site_name" content="Danilo Calderazzo">
+    <meta property="og:locale" content="es_ES">
+
+    <meta name="twitter:site" content="@2_zetas">
+    <meta name="twitter:creator" content="@2_zetas">
+    <meta name="twitter:image" content="./assets/Dani.jpg">
+    <meta name="twitter:image:alt" content="Danilo Calderazzo">
+
+    <!-- Do Not Track (DNT) de tuits incrustados.
+    Véase https://developer.twitter.com/en/docs/twitter-for-websites/privacy -->
+    <meta name="twitter:dnt" content="on">
+    <meta name="twitter:widgets:theme" content="dark">
+
+    <link rel="stylesheet" href="/assets/blog.css">
+    <link rel="alternate" type="application/feed+json" href="/posts/index.json">
+    <link rel="preload" as="script" href="/assets/blog.js" crossorigin>
+    <link rel="preload" as="fetch" href="/posts/index.json" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+
+    <title>Danilo Calderazzo, más que datos.</title>
+</head>
+<body>
+    <div>
+        <header>
+            <section>
+                <h1>Soy Dani y  .</h1>
+
+                <details>
+                    <summary>
+                        Me llamo <strong>Danilo Calderazzo</strong>. Busco datos y cosas interesantes que puedan estar tiradas por la internette.
+                    </summary>
+
+                    <p>Arranque mi viaje estudiando y trabajando en informatica y aunque mi interes por la tecnologia no ha hecho más que creecer, no me veia arreglando computadoras toda la vida asi que vire al mundo de la comunicacion en busca de respuestas, hoy en dia tengo aun más preguntas que antes pero el viaje se ha vuelto mucho más divertido. Podes ver más de esto en mi <a href="//www.linkedin.com/in/danilocalderazzo/">perfil LinkedIn</a> </p>
+
+                    <p>Me encanta aprender cosas y emprender nuevos proyectos cada vez que puedo así que decidí crear este blog como si fuera un basurero de todas esas cosas que me llaman el interés y compartir lo que aprendo y pienso.</p>
+                    
+                    <p>En conjunto con todo eso también me encantan los videojuegos, las series animadas, el marketing y los datos .</p>
+                    
+                    <p>En este viaje creo que he llegado al punto de partida perfecto donde siento que se unen mis ansias de conocimiento con mi interés por la tecnología y la comunicación. He vuelto a reencontrarme con la programación de la mano del analisis de datos y creo que puedo brindar mi granito de arena a la sociedad desde ese lugar. Podes acompañarme en este viaje a través <a href="//twitter.com/2_zetas">de mi Twitter.</a> También estaré dejando el grueso de mis investigaciones y aprendizajes en <a href="//github.com/DaniloCalderazzo/">un espacio en Github</a>.</p>
+
+                    
+
+                    <p>El <a href="//github.com/jaimeobregon/jaime.gomezobregon.com">código base de este sitio</a> es libre bajo licencia AGPL 3.0, y los contenidos que aquí publico tienen licencia <a href="//creativecommons.org/licenses/by-sa/4.0/deed.es">CC BY-SA 4.0</a> es decir que los podes tomar prestados mientras me menciones y mantengas el mismo tipo de licencia.</p>
+                </details>
+            </section>
+            <nav></nav>
+        </header>
+
+        <main>
+            <button tabindex="-1">
+                <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+            </button>
+            <article></article>
+        </main>
+    </div>
+
+    <script type="module">
+        import { blog } from './assets/blog.js'
+
+        blog.init({
+            nav: 'body > div > header > nav',
+            article: 'main > article',
+            close: 'main > button',
+        })
+    </script>
+</body>
+</html>

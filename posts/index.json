@@ -1,0 +1,39 @@
+{
+    "version": "https://jsonfeed.org/version/1.1",
+    "title": "Danilo Calderazzo",
+    "icon": "../assets/Dani.jpg",
+    "favicon": "../assets/icon.svg",
+    "home_page_url": "",
+    "feed_url": "../posts/index.json",
+    "description": "Soy Dani, y este es mi alijo de preguntas, criticas y certezas sobre esta sociedad digital llena de datos e historias.",
+    "items": [
+        {
+            "id": "las-nuevas-enciclopedias-y-sus-mentiras",
+            "url": "danilocalderazzo.github.io/las-nuevas-enciclopedias-y-sus-mentiras",
+            "title": "Las nuevas enciclopedias y sus mentiras",
+            "content_text": "Tal vez parezca algo salido de una película, pero hace años el conocimiento del mundo, para nosotros los mortales, era accesible no a través de un celular sino que se encontraba en enormes dispositivos papel llamados enciclopedias. Estas enciclopedias eran dadas a los niños como regalos para que aprendieran y descubrieran el mundo que contenían sus páginas.",
+            "date_published": "2019-11-25T09:22:00Z",
+            "tags": ["Opinión"],
+            "language": "es"
+        },
+        {
+            "id": "la-lucha-contra-las-mentiras",
+            "url": "danilocalderazzo.github.io/la-lucha-contra-las-mentiras",
+            "title": "La lucha contra las mentiras",
+            "content_text": "Imaginen que tuvieran que convencer a miles de personas de algo; cualquier cosa, de que son buenas personas, buenos alumnos o que son la mejor opción para mejorar el país y para eso disponen de un montón de tiempo, plata y un solo medio de comunicación: internet.",
+            "date_published": "2019-11-18T09:22:00Z",
+            "tags": ["Opinión"],
+            "language": "es"
+        },
+        {
+            "id": "del-dicho-al-tweet",
+            "url": "danilocalderazzo.github.io/del-dicho-al-tweet",
+            "title": "Del dicho al tweet",
+            "content_text": "En los últimos días, más bien en los últimos meses, debido a la campaña me he visto cada vez entristecido por las redes debido a la creciente crispación que se ha ido generando. Estamos en los días finales de una campaña que ha durado al menos un año y se nota. La crispación de la gente, del ambiente, de los políticos no da más, y eso se siente incluso con más potencia en las redes.",
+            "date_published": "2019-11-11T09:22:00Z",
+            "tags": ["Opinión"],
+            "language": "es"
+        }
+       
+    ]
+}
