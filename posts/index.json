@@ -8,6 +8,15 @@
     "description": "Soy Dani, y este es mi alijo de preguntas, criticas y certezas sobre esta sociedad digital llena de datos e historias.",
     "items": [
         {
+            "id": "conociendome-desde-twitter",
+            "url": "danilocalderazzo.github.io/conociendome-desde-twitter",
+            "title": "Conociendome desde Twitter",
+            "content_text": "Acercamiento al analisis de datos desde mi usuario personal de twitter usando la API y Tweepy .",
+            "date_published": "2021-08-10T09:22:00Z",
+            "tags": ["Análisis-datos"],
+            "language": "es"
+        },
+        {
             "id": "las-nuevas-enciclopedias-y-sus-mentiras",
             "url": "danilocalderazzo.github.io/las-nuevas-enciclopedias-y-sus-mentiras",
             "title": "Las nuevas enciclopedias y sus mentiras",
