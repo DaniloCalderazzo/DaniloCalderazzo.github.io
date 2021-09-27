@@ -1,0 +1,22 @@
+<h1>100 Argentinos Dicen, un acercamiento a su éxito</h1>
+
+<p>Esta semana me propuse dar un paso adelante y pasar a explorar algo más grande que mi simple usuario de Twitter.</p>
+<p>Así que mientras miraba un episodio de <b>100 argentinos dicen</b> en Youtube, dije well, i can <b>analyze</b> that.</p>
+<p>Al principio no sabía cómo arrancar el análisis de un programa de esa envergadura, por lo que me pase un día entero pensando por arrancar y que hacer.</p>
+<p>Entonces me propuse 4 objetivos (que en principio pensé que eran sencillos, how foolish of me):<br>
+<ul><li>Extraer todos los tweets que mencionen al programa</li>
+    <li>Conseguir un historial del rating del programa </li>
+    <li>Extraer todos los tweets de la cuenta oficial en twitter</li>
+    <li>Extraer los tweets hechos por Barassi en los últimos dos años</li>
+</ul>
+<p>Para lograr mi primer objetivo tuve que alejarme de la API de Twitter que había usado hasta ahora. Debido a que la API solo me deja extraer los tweets de los últimos 7 días, era necesaria otra herramienta. Ahí es cuando aparece <a href="https://github.com/twintproject/twint/wiki/Basic-usage">Twint</a> para arreglarme la vida. </p>
+<p>Twint es una herramienta basada en Python que extrae tweets con métodos de webscraping. Al principio me costó bastante entender cómo funcionaba (de hecho en un principio pensé que no podía usarse ya que está desarrollada en linux), la verdad es que la documentación es bastante escueta así que mucho fue a prueba y error.</p>
+<p>Al final pude extraer 75 mil tweets que mencionaban "100 argentinos dicen", pero la cosa no terminó ahí porque me di cuenta que habían varios bots que usaban el hashtag del programa por lo que tuve que intentar borrar todos esos tweets para que no me afecten tanto las métricas. Sinceramente no encontré una buena manera de identificar todos esos tweets pero pude ver que la mayoría usaban muchísimos hashtags por lo qué borré todos los tweets que tenían más de 4 (pienso yo que ninguna persona normal usa más de 4 hashtags a la vez), me queda pendiente revisar la <a href="https://botometer.osome.iu.edu/">API de Botometer</a> para poder hacer un buen analizador de bots.</p>
+<img src="actividad twitter.png">
+<p>Mi siguiente problema apareció cuando me propuse encontrar el historial de ratings, resulta que ibope, la principal medidora de rating en Argentina, no publica sus datos libremente. Luego encontré que la página de la <a href="http://television.com.ar/">televisión Argentina</a> los publicaba, pero en formato de imagen, o sea que si quería hacer un historial de ahí sería a mano. Eso me generó un bloqueo hasta que me di cuenta que habían varias cuentas de twitter que publicaban estos datos por lo que volví a usar twint para extraer los tweets de la cuenta <a href="https://twitter.com/YoAmoAlTrece">yoamoeltrece</a> y después de varias pruebitas con la librería <a href="https://docs.python.org/3/library/re.html">RE de Python</a> pude armar a las cansadas un buen listado de ratings</p>
+<img src="rating.png">
+<p>Con esto hecho el resto fue un poco más fácil, extraje los datos restantes y me puse a hacer algunas gráficas. Reutilicé un poco de código de la semana pasada para armar gráficas de la progresión del Rating mes a mes, así como de la progresión de likes que recibió <a href="https://twitter.com/dariobarassi">Darío Barassi</a> en el último año, y me di cuenta que tenían una progresión muy parecida. Por último hice una gráfica de las horas que donde más se tweeteaba para confirmar si se tweeteaba más durante la hora del programa.</p>
+<img src="actividad por hora.png">
+<p>Con eso y algunos memes termine haciendo un hilo que obtuvo 4mil visualizaciones, so not bad at all</p>
+<blockquote class="tweet" data-id="1438986631315329026"> </blockquote>
+<p>Por último para esta ocasión subí el código y los datos a un <a href="https://github.com/DaniloCalderazzo/Investigacion-100-Argentinos/blob/master/An%C3%A1lisis%20tweets%20100%20argentinos%20dicen.ipynb">repositorio en Github</a>, para que sí alguien llega a leer esto pueda ver como lo hice</p>

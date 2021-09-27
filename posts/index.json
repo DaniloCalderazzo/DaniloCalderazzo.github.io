@@ -8,12 +8,30 @@
     "description": "Soy Dani, y este es mi alijo de preguntas, criticas y certezas sobre esta sociedad digital llena de datos e historias.",
     "items": [
         {
+            "id": "100-argentinos-dicen-imagenes",
+            "url": "danilocalderazzo.github.io/100-argentinos-dicen-imagenes",
+            "title": "100 Argentinos Dicen y el poder de los memes",
+            "content_text": "100 Argentinos Dicen, un acercamiento a través de la actividad en twitter y las imágenes que la gente comparte",
+            "date_published": "2021-25-10T09:22:00Z",
+            "tags": ["Analisis-datos"],
+            "language": "es"
+        },
+        {
+            "id": "100-argentinos-dicen-y-su-exito",
+            "url": "danilocalderazzo.github.io/100-argentinos-dicen-exito",
+            "title": "100 Argentinos Dicen, un acercamiento a su éxito",
+            "content_text": "100 Argentinos Dicen, un acercamiento a su éxito a traves de la actividad en twitter",
+            "date_published": "2021-18-10T09:22:00Z",
+            "tags": ["Analisis-datos"],
+            "language": "es"
+        },
+        {
             "id": "conociendome-desde-twitter",
             "url": "danilocalderazzo.github.io/conociendome-desde-twitter",
-            "title": "Conociendome desde Twitter",
-            "content_text": "Acercamiento al analisis de datos desde mi usuario personal de twitter usando la API y Tweepy .",
+            "title": "Conociéndome desde Twitter",
+            "content_text": "Acercamiento al análisis de datos desde mi usuario personal de twitter usando la API y Tweepy.",
             "date_published": "2021-08-10T09:22:00Z",
-            "tags": ["Análisis-datos"],
+            "tags": ["Analisis-datos"],
             "language": "es"
         },
         {
@@ -22,7 +40,7 @@
             "title": "Las nuevas enciclopedias y sus mentiras",
             "content_text": "Tal vez parezca algo salido de una película, pero hace años el conocimiento del mundo, para nosotros los mortales, era accesible no a través de un celular sino que se encontraba en enormes dispositivos papel llamados enciclopedias. Estas enciclopedias eran dadas a los niños como regalos para que aprendieran y descubrieran el mundo que contenían sus páginas.",
             "date_published": "2019-11-25T09:22:00Z",
-            "tags": ["Opinión"],
+            "tags": ["Opinion"],
             "language": "es"
         },
         {
@@ -31,7 +49,7 @@
             "title": "La lucha contra las mentiras",
             "content_text": "Imaginen que tuvieran que convencer a miles de personas de algo; cualquier cosa, de que son buenas personas, buenos alumnos o que son la mejor opción para mejorar el país y para eso disponen de un montón de tiempo, plata y un solo medio de comunicación: internet.",
             "date_published": "2019-11-18T09:22:00Z",
-            "tags": ["Opinión"],
+            "tags": ["Opinion"],
             "language": "es"
         },
         {
@@ -40,7 +58,7 @@
             "title": "Del dicho al tweet",
             "content_text": "En los últimos días, más bien en los últimos meses, debido a la campaña me he visto cada vez entristecido por las redes debido a la creciente crispación que se ha ido generando. Estamos en los días finales de una campaña que ha durado al menos un año y se nota. La crispación de la gente, del ambiente, de los políticos no da más, y eso se siente incluso con más potencia en las redes.",
             "date_published": "2019-11-11T09:22:00Z",
-            "tags": ["Opinión"],
+            "tags": ["Opinion"],
             "language": "es"
         }
        
