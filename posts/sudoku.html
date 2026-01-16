@@ -309,26 +309,44 @@
     let streak = 0; 
     let hintsUsed = 0;
     let currentSolution = "";
-    let currentPuzzle = ""; // Guardamos el estado actual del tablero
     
     let isPencilMode = false;
     let isFastMode = false;
     let currentDifficulty = 'easy';
 
-    // --- BASE DE DATOS VERIFICADA ---
+    // --- BASE DE DATOS VERIFICADA Y LIMPIA ---
+    // He reducido la cantidad para asegurar calidad. 
+    // La permutación se encargará de que parezcan miles de juegos distintos.
     const database = {
         easy: [
-            { p: "53--7----6--195----98----6-8---6---34--8-3--17---2---6-6----28----419--5----8--79", s: "534678912672195348198342567859761423426853791713924856961537284287419635345286179" },
-            { p: "1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--", s: "145892367893176425276435819419527386762483591538961752951768234384295167627348915" },
-            { p: "--86-3---3-6-5-84--4-----9-9-4-8--1---1---5---2--3-6-7-1-----2--32-7-9-8---5-13--", s: "852174369617529483394836521478691253532478916961253748745163892283917645126985437" }
+            { 
+                p: "53--7----6--195----98----6-8---6---34--8-3--17---2---6-6----28----419--5----8--79", 
+                s: "534678912672195348198342567859761423426853791713924856961537284287419635345286179" 
+            },
+            {
+                p: "-5-1-4----1-5---89---83--2------1-5--3-----1--6-2------4--63---28---7-4----9-1-3-",
+                s: "852174369617529483394836521478691253532478916961253748745163892283917645126985437"
+            }
         ],
         medium: [
-            { p: "2---8-3---6--7--84-3-5--2-9---1-54-8---------4-27-6---3-1--7-4-72--4--6---4-1---3", s: "247981356965273184831564279679135428813429765542786913351697842728345691194812537" },
-            { p: "-5-1-4----1-5---89---83--2------1-5--3-----1--6-2------4--63---28---7-4----9-1-3-", s: "852174369617529483394836521478691253532478916961253748745163892283917645126985437" }
+            { 
+                p: "2---8-3---6--7--84-3-5--2-9---1-54-8---------4-27-6---3-1--7-4-72--4--6---4-1---3", 
+                s: "247981356965273184831564279679135428813429765542786913351697842728345691194812537" 
+            },
+            {
+                p: "--2---3--84-3---9-91-----4----2-8-37-3-----2-52-4-9----7-----63-9---4-54--3---7--", 
+                s: "652794318847312695913586247169258437734169528528479163471825963296347851385691742" 
+            }
         ],
         hard: [
-            { p: "---9---5-3-------8--82--7--1-----4-2-7--1--9-2-6-----7--1--72--7-------4-2---8---", s: "462971853357462918918253746185739462674815391239641587841527639793186245526394178" },
-            { p: "------3-6-2---5--9-9----1-----7-2--3--3-6-2--6--3-8-----8----7-9--1---4-5-4------", s: "781496356426385719395271184159742683843961257672358491218534976937126845564817932" }
+            { 
+                p: "---9---5-3-------8--82--7--1-----4-2-7--1--9-2-6-----7--1--72--7-------4-2---8---", 
+                s: "462971853357462918918253746185739462674815391239641587841527639793186245526394178" 
+            },
+            {
+                p: "-6---9--2---1-6-4--8------16------2-3---8---4-9------81------6--5-6-3---2--1---9-",
+                s: "467539812529186743381247659614758923372981564895623174136492587248765391953814265"
+            }
         ]
     };
 
@@ -340,11 +358,12 @@
     function startGame(difficulty) {
         currentDifficulty = difficulty;
         
+        // Actualizar UI
         document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
         let btnDiff = document.getElementById('btn-' + difficulty);
         if(btnDiff) btnDiff.classList.add('active');
 
-        // Resetear variables
+        // Resetear Estados
         streak = 0;
         hintsUsed = 0;
         updateStats();
@@ -356,21 +375,27 @@
         
         document.getElementById("board").innerHTML = ""; 
 
-        // Generar Juego con Permutación
+        // --- GENERACIÓN DEL JUEGO ---
         let gamesList = database[difficulty];
         let randomIndex = Math.floor(Math.random() * gamesList.length);
         let baseGame = gamesList[randomIndex];
         
-        // La permutación mágica mezcla los números para que siempre parezca un juego nuevo
+        // Permutación de números (Mezcla)
         let newGameData = getPermutedGame(baseGame.p, baseGame.s);
 
         let currentBoardString = newGameData.puzzle;
         currentSolution = newGameData.solution;
 
+        // TRAMPA DE DEBUG: Abre la consola (F12) para ver la solución real si tienes dudas
+        console.log("--- NUEVO JUEGO GENERADO ---");
+        console.log("Solución correcta:", currentSolution);
+
         // Construir Tablero
         for (let i = 0; i < 81; i++) {
             let tile = document.createElement("div");
             tile.id = i.toString();
+            
+            // Aseguramos que solo tomamos caracteres válidos
             let char = currentBoardString.charAt(i);
             
             if (char !== "-") {
@@ -378,7 +403,7 @@
                 tile.classList.add("tile-start"); 
             }
 
-            // Bordes de cuadrantes 3x3
+            // Estilos de bordes 3x3
             let col = i % 9;
             let row = Math.floor(i / 9);
             if (col === 2 || col === 5) tile.style.borderRight = "2px solid var(--primary-dark)";
@@ -392,26 +417,30 @@
         checkCompletedNumbers();
     }
 
+    // --- FUNCIÓN DE PERMUTACIÓN MÁS SEGURA ---
     function getPermutedGame(puzzle, solution) {
-        // Mezclamos los números del 1 al 9
+        // 1. Array base del 1 al 9
         let nums = ['1','2','3','4','5','6','7','8','9'];
+        
+        // 2. Mezclar aleatoriamente (Shuffle)
         for (let i = nums.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [nums[i], nums[j]] = [nums[j], nums[i]];
         }
         
+        // 3. Mapear las cadenas originales con los nuevos números
         function mapString(str) {
             let result = "";
             for(let i=0; i<str.length; i++) {
                 let char = str.charAt(i);
-                if(char === "-" || char === " ") result += "-"; // Protegemos contra espacios
-                else {
+                
+                // Si es un número del 1 al 9
+                if (char >= '1' && char <= '9') {
                     let index = parseInt(char) - 1;
-                    if (!isNaN(index) && nums[index]) {
-                        result += nums[index];
-                    } else {
-                        result += "-"; // Si falla algo, ponemos vacío
-                    }
+                    result += nums[index];
+                } else {
+                    // Cualquier otra cosa (espacio, guion, punto) es vacío
+                    result += "-";
                 }
             }
             return result;
@@ -423,7 +452,7 @@
         };
     }
 
-    // --- CONTROLADORES DE EVENTOS ---
+    // --- HERRAMIENTAS ---
     function togglePencil() {
         isPencilMode = !isPencilMode;
         updateToolVisuals();
@@ -456,14 +485,15 @@
         let position = parseInt(tileSelected.id);
         let correctNum = currentSolution.charAt(position);
 
-        tileSelected.innerText = correctNum; // innerText es más seguro
-        tileSelected.classList.remove("tile-incorrect");
-        tileSelected.classList.add("tile-correct");
+        tileSelected.innerText = correctNum;
         
-        // Limpiar cualquier nota que hubiera
+        // Limpiar lápiz si había notas
         let grid = tileSelected.querySelector(".pencil-grid");
         if(grid) grid.remove();
 
+        tileSelected.classList.remove("tile-incorrect");
+        tileSelected.classList.add("tile-correct");
+        
         hintsUsed++;
         updateStats();
         updateHighlights();
@@ -472,7 +502,7 @@
 
     function deleteAction() {
         if (tileSelected && !tileSelected.classList.contains("tile-start") && !tileSelected.classList.contains("tile-correct")) {
-            tileSelected.innerText = "";
+            tileSelected.innerText = ""; // Usar innerText limpia también el grid de lápiz
             tileSelected.classList.remove("tile-incorrect");
             updateHighlights();
         }
@@ -481,14 +511,10 @@
     // --- INTERACCIÓN ---
     function onTileClick() {
         let clickedTile = this;
-        
-        // Si es Modo Rápido, aplicamos el número
         if (isFastMode) {
             if (numSelected) applyMove(clickedTile, numSelected);
             return;
         }
-
-        // Modo Normal
         if (tileSelected) tileSelected.classList.remove("tile-selected");
         tileSelected = clickedTile;
         tileSelected.classList.add("tile-selected");
@@ -512,14 +538,15 @@
         }
     }
 
-    // --- LÓGICA PRINCIPAL CORREGIDA (Conflictos) ---
+    // --- LÓGICA DE VALIDACIÓN ---
     function applyMove(tile, number) {
-        // 1. Protecciones básicas
+        // 1. Protecciones
         if (tile.classList.contains("tile-start") || tile.classList.contains("tile-correct")) return;
 
-        // 2. Modo Lápiz (Notas)
+        // 2. Modo Lápiz
         if (isPencilMode) {
             if (tile.innerText.length === 1 && !tile.querySelector(".pencil-grid")) return;
+            
             let grid = tile.querySelector(".pencil-grid");
             if (!grid) {
                 tile.innerText = "";
@@ -532,32 +559,36 @@
                 }
                 tile.appendChild(grid);
             }
+            // number viene como string '1', restamos 1 para index 0
             let notePlace = grid.children[parseInt(number) - 1];
             notePlace.innerText = (notePlace.innerText === number) ? "" : number;
             return;
         }
 
-        // 3. NUEVO: Verificar conflictos ANTES de ponerlo rojo
-        // Si el número ya está visible en la fila/columna/caja, avisamos al usuario
-        let conflictTile = findConflict(parseInt(tile.id), number);
-        if (conflictTile) {
-            // Animamos la casilla conflictiva para mostrarle al usuario el error
-            conflictTile.classList.add("tile-incorrect");
-            setTimeout(() => conflictTile.classList.remove("tile-incorrect"), 400); // Vibración corta
-            return; // NO ponemos el número, prevenimos el error
+        // 3. NUEVO: Verificar CONFLICTO VISUAL antes de chequear solución
+        // Si el usuario pone un 6, y ya hay un 6 en la fila, le avisamos antes de ponerlo rojo por error.
+        let conflict = checkVisualConflict(parseInt(tile.id), number);
+        if (conflict) {
+            // Hacemos vibrar la casilla conflictiva
+            let conflictTile = document.getElementById(conflict.id);
+            conflictTile.classList.add("tile-incorrect"); 
+            setTimeout(() => conflictTile.classList.remove("tile-incorrect"), 400);
+            
+            // También vibramos la casilla actual
+            tile.classList.add("tile-incorrect");
+            setTimeout(() => tile.classList.remove("tile-incorrect"), 400);
+            return; // No ponemos el número
         }
 
-        // 4. Si no hay conflicto visual obvio, procedemos con la lógica del juego
+        // 4. Validar Solución
         tile.innerText = number;
-        // Limpiamos notas si había
-        let grid = tile.querySelector(".pencil-grid");
-        if(grid) grid.remove();
-
+        // Si había notas (lápiz), se borran automáticamente al hacer innerText
+        
         let position = parseInt(tile.id);
         let correctNumber = currentSolution.charAt(position);
 
         if (number === correctNumber) {
-            // CORRECTO
+            // ACIERTO
             tile.classList.remove("tile-incorrect");
             tile.classList.add("tile-correct");
             
@@ -568,7 +599,7 @@
             else highlightSameNumbers(numSelected);
             checkCompletedNumbers();
         } else {
-            // INCORRECTO (Aunque no haya conflicto visual, no coincide con la solución)
+            // ERROR (No hay conflicto visual, pero no es la solución de este puzzle específico)
             tile.classList.add("tile-incorrect");
             tile.classList.remove("tile-correct");
             
@@ -576,42 +607,36 @@
             updateStats();
         }
     }
-
-    // --- NUEVA FUNCIÓN: ENCONTRAR CONFLICTO ---
-    function findConflict(currentId, number) {
+    
+    // --- FUNCIÓN PARA DETECTAR SI EL NÚMERO YA EXISTE EN FILA/COL/CUADRO ---
+    function checkVisualConflict(currentId, number) {
         let currentRow = Math.floor(currentId / 9);
         let currentCol = currentId % 9;
         let startRow = Math.floor(currentRow / 3) * 3;
         let startCol = Math.floor(currentCol / 3) * 3;
 
-        let allTiles = document.querySelectorAll(".tile");
-        
         for (let i = 0; i < 81; i++) {
-            if (i === currentId) continue; // No compararse con uno mismo
+            if (i === currentId) continue; // No chequear contra sí mismo
 
-            let tile = allTiles[i];
-            // Ignoramos notas o casillas vacías
+            let tile = document.getElementById(i.toString());
+            // Ignorar casillas vacías o con notas de lápiz
             if (tile.innerText === "" || tile.querySelector(".pencil-grid")) continue;
 
-            // Si el número es igual al que queremos poner
             if (tile.innerText === number) {
                 let r = Math.floor(i / 9);
                 let c = i % 9;
 
-                // Chequear Fila, Columna o Cuadrado
-                let isRow = (r === currentRow);
-                let isCol = (c === currentCol);
-                let isBox = (r >= startRow && r < startRow + 3 && c >= startCol && c < startCol + 3);
-
-                if (isRow || isCol || isBox) {
-                    return tile; // Devolvemos la casilla que causa el problema
+                // Es Fila? O Columna? O Cuadro 3x3?
+                if (r === currentRow || c === currentCol || 
+                   (r >= startRow && r < startRow + 3 && c >= startCol && c < startCol + 3)) {
+                    return tile; // Retornamos la casilla culpable
                 }
             }
         }
-        return null; // No hay conflictos visibles
+        return null; // No hay conflicto visual
     }
 
-    // --- FUNCIONES AUXILIARES ---
+    // --- HELPERS ---
     function checkCompletedNumbers() {
         let counts = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0};
         let allTiles = document.querySelectorAll(".tile");
@@ -642,17 +667,14 @@
     }
 
     function updateStats() {
-        let streakDisplay = document.getElementById("streak-display");
-        if(streakDisplay) streakDisplay.innerText = "Racha: " + streak;
+        let streakEl = document.getElementById("streak-display");
+        if(streakEl) streakEl.innerText = "Racha: " + streak;
         
-        let hintsDisplay = document.getElementById("hints-display");
-        if(hintsDisplay) hintsDisplay.innerText = hintsUsed;
+        let hintsEl = document.getElementById("hints-display");
+        if(hintsEl) hintsEl.innerText = hintsUsed;
         
         let fire = document.getElementById("fire-icon");
-        if(fire) {
-            if(streak > 0) fire.style.opacity = "1";
-            else fire.style.opacity = "0.2";
-        }
+        if(fire) fire.style.opacity = (streak > 0) ? "1" : "0.2";
     }
     
     function animateStreak() {
@@ -712,3 +734,4 @@
 </body>
 
 </html>
+
