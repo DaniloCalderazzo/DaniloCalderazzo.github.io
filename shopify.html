@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedTickets + Tienda Shopify</title>
+    <style>
+        :root {
+            --orange: #ff6600;
+            --green: #00b33c;
+            --border-light: #ddd;
+        }
+
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #fff; }
+
+        /* Header Estilo RedTickets */
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px 5%;
+            border-bottom: 1px solid var(--border-light);
+            justify-content: space-between;
+        }
+
+        .logo { font-size: 24px; font-weight: bold; color: var(--orange); }
+
+        /* Layout Principal */
+        .main-container {
+            display: flex;
+            padding: 30px 5%;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* COLUMNA IZQUIERDA: Imagen + Tienda */
+        .event-column {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1506912543338-3c2796ac9625?auto=format&fit=crop&w=1000&q=80') center/cover;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding-left: 40px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .hero-image h1 { font-size: 3rem; text-transform: uppercase; margin: 0; }
+
+        /* Sección Shopify */
+        .merch-section {
+            border-top: 2px solid #f0f0f0;
+            padding-top: 20px;
+        }
+
+        .merch-section h2 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* COLUMNA DERECHA: Tickets */
+        .ticket-column {
+            flex: 1;
+            min-width: 320px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .date-box {
+            background-color: var(--orange);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-card {
+            border: 1px solid var(--border-light);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+
+        .ticket-card b { display: block; font-size: 1rem; margin-top: 5px; }
+
+        .btn-buy {
+            width: 100%;
+            background-color: var(--green);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; }
+            .ticket-column { width: 100%; position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Red★Tickets</div>
+        <div style="color: var(--orange); font-weight: bold;">Mis Tickets | Crear Evento</div>
+    </header>
+
+    <div class="main-container">
+        
+        <div class="event-column">
+            <div class="hero-image">
+                <h1>Hermanos Gutierrez</h1>
+            </div>
+
+            <div class="merch-section">
+                <h2>Remeras del Show y Merch</h2>
+                <div id='collection-component-1770751948491'></div>
+            </div>
+        </div>
+
+        <div class="ticket-column">
+            <p style="color: #666; margin-bottom: 5px;">Fecha</p>
+            <div class="date-box">Todo el año (9:00 - 18:00hs)</div>
+            
+            <p style="color: #666; margin-bottom: 5px;">Tickets</p>
+            <div class="ticket-grid">
+                <div class="ticket-card">Entrada<br><b>$ 6325</b></div>
+                <div class="ticket-card">Mega Vip<br><b>$ 11500</b></div>
+                <div class="ticket-card">Express<br><b>$ 3680</b></div>
+            </div>
+
+            <button class="btn-buy">Comprar Tickets</button>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      if (window.ShopifyBuy) {
+        if (window.ShopifyBuy.UI) {
+          ShopifyBuyInit();
+        } else {
+          loadScript();
+        }
+      } else {
+        loadScript();
+      }
+      function loadScript() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+        script.onload = ShopifyBuyInit;
+      }
+      function ShopifyBuyInit() {
+        var client = ShopifyBuy.buildClient({
+          domain: 'dqdrim-un.myshopify.com',
+          storefrontAccessToken: '6105791d2de16d8e4d091ffb95be896d',
+        });
+        ShopifyBuy.UI.onReady(client).then(function (ui) {
+          ui.createComponent('collection', {
+            id: '293378555988',
+            node: document.getElementById('collection-component-1770751948491'),
+            moneyFormat: '%24%7B%7Bamount_with_comma_separator%7D%7D',
+            options: {
+              "product": {
+                "styles": {
+                  "product": {
+                    "@media (min-width: 601px)": {
+                      "max-width": "calc(33.33% - 20px)", /* Ajustado a 3 columnas para que quepa mejor */
+                      "margin-left": "20px",
+                      "margin-bottom": "50px"
+                    },
+                    "button": {
+                      "background-color": "#ff6600",
+                      "border-radius": "12px",
+                      ":hover": { "background-color": "#e65c00" }
+                    },
+                    "title": { "color": "#ff6600" }
+                  }
+                },
+                "text": { "button": "Comprar" }
+              }
+            }
+          });
+        });
+      }
+    })();
+    /*]]>*/
+    </script>
+</body>
+</html>
