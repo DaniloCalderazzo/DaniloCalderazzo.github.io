@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedTickets + Shopify Fix</title>
+    <style>
+        :root { --orange: #ff6600; --green: #00b33c; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; }
+
+        .main-container { display: flex; padding: 30px 5%; gap: 40px; }
+        .event-column { flex: 2; min-width: 0; } /* min-width: 0 es vital para que flex no se rompa */
+
+        .hero-image {
+            width: 100%; height: 300px;
+            background: #333 url('https://images.unsplash.com/photo-1506912543338-3c2796ac9625?auto=format&fit=crop&w=1000&q=80') center/cover;
+            border-radius: 8px; margin-bottom: 20px;
+        }
+
+        /* --- CONTENEDOR DE LA TIENDA --- */
+        .merch-scroll-container {
+            width: 100%;
+            overflow-x: auto; /* Scroll horizontal */
+            overflow-y: hidden;
+            background: #fff;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        /* Forzamos que el componente de Shopify se estire a lo ancho */
+        #collection-component-1770751948491 {
+            display: block;
+            min-height: 400px;
+        }
+
+        /* COLUMNA DERECHA */
+        .ticket-column { flex: 1; min-width: 300px; }
+        .date-box { background: var(--orange); color: white; padding: 15px; text-align: center; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="event-column">
+            <div class="hero-image"></div>
+            
+            <h3>Remeras del Show</h3>
+          <div id='collection-component-1770812219717'></div>
+<script type="text/javascript">
+/*<![CDATA[*/
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  if (window.ShopifyBuy) {
+    if (window.ShopifyBuy.UI) {
+      ShopifyBuyInit();
+    } else {
+      loadScript();
+    }
+  } else {
+    loadScript();
+  }
+  function loadScript() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+    script.onload = ShopifyBuyInit;
+  }
+  function ShopifyBuyInit() {
+    var client = ShopifyBuy.buildClient({
+      domain: 'dqdrim-un.myshopify.com',
+      storefrontAccessToken: '6105791d2de16d8e4d091ffb95be896d',
+    });
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+      ui.createComponent('collection', {
+        id: '293378752596',
+        node: document.getElementById('collection-component-1770812219717'),
+        moneyFormat: '%24%7B%7Bamount_with_comma_separator%7D%7D',
+        options: {
+  "product": {
+    "styles": {
+      "product": {
+        "@media (min-width: 601px)": {
+          "max-width": "280px", /* Ancho fijo de cada producto */
+          "margin-left": "20px",
+          "margin-bottom": "20px",
+          "flex": "0 0 auto" /* Evita que los productos se encojan */
+        },
+        "img": {
+          "height": "calc(100% - 15px)",
+          "position": "absolute",
+          "left": "0",
+          "right": "0",
+          "top": "0"
+        },
+        "imgWrapper": {
+          "padding-top": "calc(75% + 15px)",
+          "position": "relative",
+          "height": "0"
+        }
+      },
+      "title": { "color": "#ff6600" },
+      "button": {
+        "font-family": "Lato, sans-serif",
+        "font-weight": "bold",
+        "background-color": "#ff6600",
+        "border-radius": "12px",
+        ":hover": { "background-color": "#e65c00" }
+      }
+    },
+    "buttonDestination": "checkout",
+    "text": { "button": "Comprar" },
+    "googleFonts": ["Lato"]
+  },
+  "productSet": {
+    "styles": {
+      "products": {
+        "display": "flex !important", /* Forzamos el modo fila */
+        "flex-wrap": "nowrap !important", /* Evitamos que salten de línea */
+        "overflow-x": "auto !important", /* Scroll horizontal */
+        "scroll-snap-type": "x mandatory", /* Efecto de imán al deslizar */
+        "padding-bottom": "15px",
+        "height": "500px", /* AQUÍ AJUSTAS LA ALTURA TOTAL */
+        "-webkit-overflow-scrolling": "touch"
+      }
+    }
+  },
+  "cart": {
+    "styles": {
+      "button": {
+        "font-family": "Lato, sans-serif",
+        "font-weight": "bold",
+        "background-color": "#ff6600",
+        "border-radius": "12px"
+      }
+    },
+    "googleFonts": ["Lato"]
+  },
+  "toggle": {
+    "styles": {
+      "toggle": {
+        "font-family": "Lato, sans-serif",
+        "background-color": "#ff6600"
+      }
+    }
+  }
+},
+      });
+    });
+  }
+})();
+/*]]>*/
+</script>
+</body>
+</html>
